@@ -1,0 +1,15 @@
+max_vel_x: 3.0 #maksymalna prędkość na osi x
+max_vel_y: 0.0 #minimalna prędkość
+min_vel_x: 0.1 #minimalna prędkość na osi x
+min_vel_y: 0.0 #minimalna prędkość na osi y
+max_vel_theta: 1.0 #maksymalna prędkość kątowa
+min_in_place_vel_theta: 0.4 #minimalna prędkość kątowa w miejscu
+
+acc_lim_theta: 4.0 #limit przyspieszenia kątowego
+acc_lim_x: 3.0 #limit przyspieszenia na osi x
+acc_lim_y: 3.0 #limit przyspieszenia na osi y
+
+yaw_goal_tolerance: 0.1 #tolerancja celu w radianach
+xy_goal_tolerance: 0.1 #tolerancja celu na osi xy
+
+holonomic_robot: false #czy robot jest holonomiczny

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <arg name="public_sim"            default="true"/>
+  <arg name="planner"        default="base"/>
+  <arg name="global_planner" default="global_planner"/>
+  <arg name="local_planner"  default="$(eval 'teb' if (arg('public_sim') or arg('base_type')=='omni_base') else 'pal')"/>
+  <arg name="localization"   default="amcl"/>
+  <arg name="map"            default="$(find stero_mobile_init)/map/korytarz5.yaml"/>
+  <arg name="laser_model"  default="sick-571"/>
+  <arg name="base_type" default="pmb2"/>
+
+  <include file="$(find stero_mobile_init)/launch/tiago_simple.launch">
+    <arg name="world" value="korytarz5"/>
+    <arg name="robot" value="steel"/>
+    <arg name="tuck_arm" default="true"/>
+    <arg name="end_effector" value="pal-gripper"/>
+  </include>
+  <include file="$(find tiago_2dnav_gazebo)/launch/navigation.launch">
+      <arg name="state"          value="localization"/>
+      <arg name="planner"        value="$(arg planner)"/>
+      <arg name="global_planner" value="$(arg global_planner)"/>
+      <arg name="local_planner"  value="$(arg local_planner)"/>
+      <arg name="localization"   value="$(arg localization)"/>
+      <arg name="map"            value="$(arg map)"/>
+      <arg name="public_sim"     value="true"/>
+      <arg name="rgbd_sensors"   value="false"/>
+      <arg name="laser_model"    value="$(arg laser_model)"/>
+      <arg name="base_type"      value="$(arg base_type)"/>
+    </include>
+  <node name="map_server" pkg="map_server" type="map_server" output="screen" args="$(arg map)">
+  </node>
+  <node pkg="tf" type="static_transform_publisher" name="jp" args="0 0 0 0 0 0 map odom 100">
+  </node>
+  <node name="stero_spawn_objects" pkg="stero_mobile_init" type="spawn_objects.py" output="screen">
+  </node>
+  <node name="go_to_tables" pkg="stero_mobile_init" type="go_to_tables.py" output="screen">
+  </node>
+</launch>

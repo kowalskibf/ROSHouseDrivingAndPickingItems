@@ -1,0 +1,5 @@
+visualize_potential: true
+
+use_grid_path: false
+
+use_dijkstra: true
