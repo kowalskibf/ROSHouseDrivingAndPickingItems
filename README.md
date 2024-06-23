@@ -1,4 +1,4 @@
-# ROS House Drivig and picking items
+# ROS House Driving and picking items
 
 Project done in a two-person team.
 
